@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { ethers } from "ethers";
 import "./App.css";
 import abi from "./utils/WavePortal.json";
@@ -7,6 +7,7 @@ const getEthereumObject = () => window.ethereum;
 
 export default function App() {
   const [currentAccount, setCurrentAccount] = React.useState("");
+  const [userMessage, setUserMessage] = React.useState("");
 
   const [allWaves, setAllWaves] = React.useState([]);
 
@@ -140,12 +141,15 @@ export default function App() {
           signer
         );
 
+        if (!userMessage) {
+          alert("Please enter a message!");
+          return;
+        }
+
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count);
 
-        const waveTxn = await wavePortalContract.wave(
-          "Hello, this is my first message!"
-        );
+        const waveTxn = await wavePortalContract.wave(userMessage);
         console.log("Mining...", waveTxn.hash);
 
         await waveTxn.wait();
@@ -166,8 +170,8 @@ export default function App() {
       <div className="container">
         <div className="col-lg-8 mx-lg-auto mx-3">
           <h1 className="heading">
-            <span class="gradient">Decentralized</span>{" "}
-            <span class="solid-blue">Dialogue</span>
+            <span className="gradient">Decentralized</span>{" "}
+            <span className="solid-blue">Dialogue</span>
           </h1>
           <div className="intro-text">
             I am <span className="solid-blue">Tanuj</span> and I am on a path to
@@ -180,6 +184,8 @@ export default function App() {
           </div>
 
           <textarea
+            value={userMessage}
+            onChange={(e) => setUserMessage(e.target.value)}
             className="message-box mb-3 p-3"
             rows="5"
             placeholder="Speak your vibe here - type it, send it, own it."

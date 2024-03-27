@@ -1,33 +1,99 @@
-.mainContainer {
-  display: flex;
-  justify-content: center;
+html{
+  background-color: blue;
+}
+
+.wavePortal {
+  background-color: black;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 4rem;
+}
+
+.intro-text {
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* If the screen size is 768px or less, set the font size to 3rem */
+@media (max-width: 768px) {
+  .heading {
+    font-size: 3.5rem;
+  }
+
+  .intro-text {
+    font-size: 1.2rem;
+  }
+}
+
+/* If the screen size is 576px or less, set the font size to 2rem */
+@media (max-width: 576px) {
+  .heading {
+    font-size: 3rem;
+  }
+
+  .intro-text {
+    font-size: 1.3rem;
+  }
+}
+
+.gradient {
+  background: linear-gradient(45deg, red, blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.solid-blue {
+  color: blue;
+}
+
+.solid-red {
+  color: red;
+}
+
+
+
+.btn-gradient {
+  background: linear-gradient(45deg, red, blue);
+  border: none;
+  color: white;
+}
+
+.message-box {
+  background-color: #171717;
+  border: none;
+  color: white;
   width: 100%;
-  margin-top: 64px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  outline: none;
 }
 
-.dataContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 600px;
-}
-
-.header {
-  text-align: center;
-  font-size: 32px;
+.btn-style {
+  background-color: blue;
+  border: none;
+  outline: none;
+  padding: 11px 35px;
+  color: white;
+  font-size: 1.2rem;
   font-weight: 600;
+  border-radius: 10px;
 }
 
-.bio {
-  text-align: center;
-  color: gray;
-  margin-top: 16px;
+.btn-style:hover {
+  background-color: rgb(1, 1, 200);
 }
 
-.waveButton {
-  cursor: pointer;
-  margin-top: 16px;
-  padding: 8px;
-  border: 0;
-  border-radius: 5px;
+.address {
+  font-size: 0.8rem;
+  color: rgb(95, 95, 95);
+  overflow-wrap: break-word;
+}
+
+.time {
+  font-size: 0.9rem;
+  color: rgb(139, 139, 139);
 }

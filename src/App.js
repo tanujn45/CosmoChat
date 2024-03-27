@@ -162,43 +162,52 @@ export default function App() {
   };
 
   return (
-    <div className="mainContainer">
-      <div className="dataContainer">
-        <div className="header">👋 Hey there!</div>
+    <section className="wavePortal py-5">
+      <div className="container">
+        <div className="col-lg-8 mx-lg-auto mx-3">
+          <h1 className="heading">
+            <span class="gradient">Decentralized</span>{" "}
+            <span class="solid-blue">Dialogue</span>
+          </h1>
+          <div className="intro-text">
+            I am <span className="solid-blue">Tanuj</span> and I am on a path to
+            learn <span className="solid-red">Web3</span>!
+          </div>
+          <div className="intro-text py-3">
+            Drop me a line on the blockchain - your words encrypted, your
+            message immortalized in the digital ether. Let's chat, encrypted and
+            unstoppable.
+          </div>
 
-        <div className="bio">
-          I am Tanuj and I am on a path to learn web3 and make a career in it!
-          This is my first smart contract project and I am excited to see what I
-          can do!
+          <textarea
+            className="message-box mb-3 p-3"
+            rows="5"
+            placeholder="Speak your vibe here - type it, send it, own it."
+          />
+
+          <div className="d-flex justify-content-center align-items-center">
+            <button className="btn-style mx-3 mb-5" onClick={wave}>
+              Quantum Send
+            </button>
+
+            {!currentAccount && (
+              <button className="btn-style mx-3 mb-5" onClick={connectWallet}>
+                Connect Wallet
+              </button>
+            )}
+          </div>
+
+          {allWaves.map((wave, index) => {
+            return (
+              <div key={index} className="message-box p-4 mb-4">
+                <div className="intro-text mb-5">{wave.message}</div>
+                <div className="time mt-1">{wave.timestamp.toString()}</div>
+                <div className="address">{wave.address}</div>
+              </div>
+            );
+          })}
         </div>
-
-        <button className="waveButton" onClick={wave}>
-          Wave at Me
-        </button>
-
-        {!currentAccount && (
-          <button className="waveButton" onClick={connectWallet}>
-            Connect Wallet
-          </button>
-        )}
-
-        {allWaves.map((wave, index) => {
-          return (
-            <div
-              key={index}
-              style={{
-                backgroundColor: "OldLace",
-                marginTop: "16px",
-                padding: "8px",
-              }}
-            >
-              <div>Address: {wave.address}</div>
-              <div>Time: {wave.timestamp.toString()}</div>
-              <div>Message: {wave.message}</div>
-            </div>
-          );
-        })}
       </div>
-    </div>
+    </section>
   );
 }

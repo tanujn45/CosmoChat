@@ -192,9 +192,11 @@ export default function App() {
           />
 
           <div className="d-flex justify-content-center align-items-center">
-            <button className="btn-style mx-3 mb-5" onClick={wave}>
-              Quantum Send
-            </button>
+            {currentAccount && (
+              <button className="btn-style mx-3 mb-5" onClick={wave}>
+                Quantum Send
+              </button>
+            )}
 
             {!currentAccount && (
               <button className="btn-style mx-3 mb-5" onClick={connectWallet}>

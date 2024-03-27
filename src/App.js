@@ -13,7 +13,7 @@ export default function App() {
   const contractAddress = "0x47E7ead63474cEad996DA6B7aCEe2657896c1c37";
   const contractABI = abi.abi;
 
-  const checkIfWalletIsConnected = async () => {
+  const checkIfWalletIsConnected = useCallback(async () => {
     try {
       const ethereum = getEthereumObject();
 
@@ -36,7 +36,7 @@ export default function App() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
   const connectWallet = async () => {
     try {
@@ -59,7 +59,7 @@ export default function App() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-  }, []);
+  }, [checkIfWalletIsConnected]);
 
   const getAllWaves = async () => {
     try {
@@ -125,7 +125,7 @@ export default function App() {
         wavePortalContract.off("NewWave", onNewWave);
       }
     };
-  }, []);
+  }, [contractABI]);
 
   const wave = async () => {
     try {

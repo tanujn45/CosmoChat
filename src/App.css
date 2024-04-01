@@ -1,4 +1,4 @@
-html{
+html {
   background-color: #2196f3;
 }
 
@@ -55,8 +55,6 @@ html{
   color: #fc466b;
 }
 
-
-
 .btn-gradient {
   background: linear-gradient(45deg, #fc466b, #2196f3);
   border: none;
@@ -97,4 +95,16 @@ html{
 .time {
   font-size: 0.9rem;
   color: rgb(139, 139, 139);
+}
+
+footer {
+  background-color: #000;
+}
+
+footer p {
+  font-size: 0.8rem;
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  font-weight: bold;
 }

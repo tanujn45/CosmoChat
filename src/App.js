@@ -2,6 +2,10 @@ import React, { useEffect, useCallback } from "react";
 import { ethers } from "ethers";
 import "./App.css";
 import abi from "./utils/WavePortal.json";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const getEthereumObject = () => window.ethereum;
 
@@ -25,6 +29,15 @@ export default function App() {
 
       console.log("We have the Ethereum object", ethereum);
       const accounts = await ethereum.request({ method: "eth_accounts" });
+
+      let chainId = await ethereum.request({ method: "eth_chainId" });
+      console.log("Connected to chain " + chainId);
+
+      const sepoliaChainId = "0xaa36a7"; // Sepolia Test network
+      if (chainId !== sepoliaChainId) {
+        toast.error("You are not connected to the Sepolia Test Network!");
+        return;
+      }
 
       if (accounts.length !== 0) {
         const account = accounts[0];
@@ -60,7 +73,7 @@ export default function App() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-  }, [checkIfWalletIsConnected]);
+  }, []);
 
   const getAllWaves = async () => {
     try {
@@ -166,56 +179,82 @@ export default function App() {
   };
 
   return (
-    <section className="wavePortal py-5">
-      <div className="container">
-        <div className="col-lg-8 mx-lg-auto mx-3">
-          <h1 className="heading">
-            <span className="gradient">Decentralized</span>{" "}
-            <span className="solid-blue">Dialogue</span>
-          </h1>
-          <div className="intro-text">
-            I am <span className="solid-blue">Tanuj</span> and I am on a path to
-            learn <span className="solid-red">Web3</span>!
+    <div className="App">
+      <ToastContainer />
+      <section className="wavePortal py-5">
+        <div className="container">
+          <div className="col-lg-8 mx-lg-auto mx-3">
+            <h1 className="heading">
+              <span className="gradient">Decentralized</span>{" "}
+              <span className="solid-blue">Dialogue</span>
+            </h1>
+            <div className="intro-text">
+              I am <span className="solid-blue">Tanuj</span> and I am on a path
+              to learn <span className="solid-red">Web3</span>!
+            </div>
+            <div className="intro-text py-3">
+              Drop me a line on the blockchain - your words encrypted, your
+              message immortalized in the digital ether. Let's chat, encrypted
+              and unstoppable.
+            </div>
+
+            <textarea
+              value={userMessage}
+              onChange={(e) => setUserMessage(e.target.value)}
+              className="message-box mb-3 p-3"
+              rows="5"
+              placeholder="Speak your vibe here - type it, send it, own it."
+            />
+
+            <div className="d-flex justify-content-center align-items-center">
+              {currentAccount && (
+                <button className="btn-style mx-3 mb-5" onClick={wave}>
+                  Quantum Send
+                </button>
+              )}
+
+              {!currentAccount && (
+                <button className="btn-style mx-3 mb-5" onClick={connectWallet}>
+                  Connect Wallet
+                </button>
+              )}
+            </div>
+
+            {[...allWaves].reverse().map((wave, index) => {
+              return (
+                <div key={index} className="message-box p-4 mb-4">
+                  <div className="intro-text mb-5">{wave.message}</div>
+                  <div className="time mt-1">{wave.timestamp.toString()}</div>
+                  <div className="address">{wave.address}</div>
+                </div>
+              );
+            })}
           </div>
-          <div className="intro-text py-3">
-            Drop me a line on the blockchain - your words encrypted, your
-            message immortalized in the digital ether. Let's chat, encrypted and
-            unstoppable.
-          </div>
-
-          <textarea
-            value={userMessage}
-            onChange={(e) => setUserMessage(e.target.value)}
-            className="message-box mb-3 p-3"
-            rows="5"
-            placeholder="Speak your vibe here - type it, send it, own it."
-          />
-
-          <div className="d-flex justify-content-center align-items-center">
-            {currentAccount && (
-              <button className="btn-style mx-3 mb-5" onClick={wave}>
-                Quantum Send
-              </button>
-            )}
-
-            {!currentAccount && (
-              <button className="btn-style mx-3 mb-5" onClick={connectWallet}>
-                Connect Wallet
-              </button>
-            )}
-          </div>
-
-          {allWaves.map((wave, index) => {
-            return (
-              <div key={index} className="message-box p-4 mb-4">
-                <div className="intro-text mb-5">{wave.message}</div>
-                <div className="time mt-1">{wave.timestamp.toString()}</div>
-                <div className="address">{wave.address}</div>
-              </div>
-            );
-          })}
         </div>
-      </div>
-    </section>
+      </section>
+      <footer className="text-white text-center py-4">
+        <div className="container">
+          <div className="d-flex g-5 align-items-center justify-content-center">
+            <a
+              href="https://www.linkedin.com/in/tanujn45/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2 text-white"
+            >
+              <FontAwesomeIcon icon={faLinkedin} size="lg" />
+            </a>
+            <a
+              href="https://github.com/tanujn45"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2 text-white"
+            >
+              <FontAwesomeIcon icon={faGithub} size="lg" />
+            </a>
+          </div>
+          <p className="text-white">❤️ Tanuj Namdeo</p>
+        </div>
+      </footer>
+    </div>
   );
 }
